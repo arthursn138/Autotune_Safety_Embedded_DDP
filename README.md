@@ -1,21 +1,25 @@
-# Autotune_Safety_Embedded_DDP
-Work buit with help from Hassan Almubarak (DDP ad barriers codebase).
+# Autotune Barrier Methods for Safe Trajectory Optimization
+Aim to autotune the weights of barrier states and penalty for control barrier functions such that an optimal trajectory can be calculated with quick convergence, i.e. we avoid the conflict of the optimal path with too conservative barrier penalties.
 
-Refer to https://arxiv.org/abs/2102.10253 and https://arxiv.org/abs/2105.14608, and utilize proper citation:
 
-	@article{Almubarak_2022,
-	doi = {10.1109/lcsys.2021.3093255},
-	url = {https://doi.org/10.1109%2Flcsys.2021.3093255},
-	year = 2022,
-	publisher = {Institute of Electrical and Electronics Engineers ({IEEE})},
-	volume = {6},
-	pages = {1328--1333},
-	author = {Hassan Almubarak and Nader Sadegh and Evangelos A. Theodorou},
-	title = {Safety Embedded Control of Nonlinear Systems via Barrier States},
-	journal = {{IEEE} Control Systems Letters}
-	}
+Arthur Scaquetti do Nascimento (nascimento@gatech.edu), Hassan Almubarak (halmubarak@gatech.edu) - ACDS Lab @ Georgia Tech
 
-and
+Last Update May 2022
+
+#
+Follow those steps to run any example
+1. Call the system's dynamics
+2. Generate the obstacle course and define the safe set function (h)
+3. Call DBaS_dyn to generate the DBaS dynamics
+4. Call Safety_Embedding_dynamics to augment the DBaS to the system's dynamics
+5. Define DDP and optimization paramters and run vanilla DDP
+
+NOTE: to avoid pentrating the obstacles in some cases due to the discrete formulation, use disc_ddp_alg_penalty which penalizes the interior of the unsafe regions as done in the penalty methods. disc_ddp_alg_penalty takes h as an extra input to penalize the interiors of the obstacles.
+This gives advantages of good planning from safety embedded ddp and the advantage of penalty methods. 
+
+
+**Safety Embedded Differential Dynamic Programming using Discrete Barrier States (DBaS)**
+https://arxiv.org/pdf/2105.14608.pdf
 
 	@article{DBLP:journals/corr/abs-2105-14608,
  	 author    = {Hassan Almubarak and
